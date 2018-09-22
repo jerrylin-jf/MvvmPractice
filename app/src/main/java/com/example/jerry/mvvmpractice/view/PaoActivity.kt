@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
 import com.example.jerry.mvvmpractice.R
 import com.example.jerry.mvvmpractice.databinding.ActivityPaoBinding
 import com.example.jerry.mvvmpractice.model.remote.PaoService
@@ -40,4 +41,5 @@ class PaoActivity : AppCompatActivity() {
         binding.vm = paoViewModel
         paoViewModel.loadArticle()
     }
+
 }
