@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.Menu
 import com.example.jerry.mvvmpractice.R
 import com.example.jerry.mvvmpractice.databinding.ActivityPaoBinding
+import com.example.jerry.mvvmpractice.model.local.AppDatabase
 import com.example.jerry.mvvmpractice.model.remote.PaoService
+import com.example.jerry.mvvmpractice.model.respository.PaoRepo
 import com.example.jerry.mvvmpractice.viewmodel.PaoViewModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -36,8 +38,9 @@ class PaoActivity : AppCompatActivity() {
             .build()
             .create(PaoService::class.java)
 
-
-        paoViewModel = PaoViewModel(remote)
+        val local = AppDatabase.getInstance(applicationContext).paoDao()
+        val repo = PaoRepo(remote, local)
+        paoViewModel = PaoViewModel(repo)
         binding.vm = paoViewModel
         paoViewModel.loadArticle()
     }

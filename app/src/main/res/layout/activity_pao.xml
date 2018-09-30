@@ -68,7 +68,8 @@
                 <us.feras.mdv.MarkdownView
                         android:id="@+id/web_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        tools:ignore="MissingConstraints"/>
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
 
