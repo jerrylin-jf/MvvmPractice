@@ -69,4 +69,12 @@ dependencies {
     implementation 'com.uber.autodispose:autodispose:0.8.0'
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
 
+    //room (local)
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    //facebook出品，可在Chrome中查看数据库
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
+
 }
