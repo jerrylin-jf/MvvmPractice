@@ -76,5 +76,6 @@ dependencies {
     //facebook出品，可在Chrome中查看数据库
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
-
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

@@ -27,7 +27,6 @@ class PaoViewModel(private val repo: PaoRepo) {
             .doOnSubscribe { startLoad() }
             .doAfterTerminate { stopLoad() }
             .doOnSuccess { article ->
-                Log.d("jerry", "$article")
                 title.set(article.title)
                 article.content?.let {
                     val articleContent = Utils.processImgSrc(it)
