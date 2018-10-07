@@ -13,8 +13,9 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class PaoViewModel(private val repo: PaoRepo) {
+class PaoViewModel @Inject constructor(private val repo: PaoRepo) {
 
     val loading = ObservableBoolean(false)
     val title = ObservableField<String>()

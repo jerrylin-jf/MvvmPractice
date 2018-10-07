@@ -6,48 +6,30 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.webkit.WebViewClient
 import android.widget.Toast
 import com.example.jerry.mvvmpractice.databinding.ActivityPaoBinding
+import com.example.jerry.mvvmpractice.di.component.DaggerAppComponent
+import com.example.jerry.mvvmpractice.di.module.AppModule
 import com.example.jerry.mvvmpractice.helper.bindLifeCycle
-import com.example.jerry.mvvmpractice.model.local.AppDatabase
-import com.example.jerry.mvvmpractice.model.remote.PaoService
-import com.example.jerry.mvvmpractice.model.respository.PaoRepo
 import com.example.jerry.mvvmpractice.viewmodel.PaoViewModel
-import kotlinx.android.synthetic.main.activity_pao.*
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class PaoActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityPaoBinding
-    lateinit var paoViewModel: PaoViewModel
+    @Inject lateinit var paoViewModel: PaoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pao)
 
-        val remote = Retrofit.Builder()
-            .baseUrl("http://api.jcodecraeer.com/")
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
-                    .build()
-            )
-            .build()
-            .create(PaoService::class.java)
+        getComponent().inject(this)
 
-        val local = AppDatabase.getInstance(applicationContext).paoDao()
-        val repo = PaoRepo(remote, local)
-        paoViewModel = PaoViewModel(repo)
         binding.vm = paoViewModel
-
     }
+
+    fun getComponent() = DaggerAppComponent.builder()
+        .appModule(AppModule(applicationContext)).build()
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.let {
