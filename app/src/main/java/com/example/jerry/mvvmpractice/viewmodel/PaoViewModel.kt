@@ -1,11 +1,13 @@
 package com.example.jerry.mvvmpractice.viewmodel
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.util.Log
 import com.example.jerry.mvvmpractice.helper.Utils
 import com.example.jerry.mvvmpractice.helper.async
+import com.example.jerry.mvvmpractice.helper.set
 import com.example.jerry.mvvmpractice.model.data.Article
 import com.example.jerry.mvvmpractice.model.remote.PaoService
 import com.example.jerry.mvvmpractice.model.respository.PaoRepo
@@ -17,10 +19,10 @@ import javax.inject.Inject
 
 class PaoViewModel @Inject constructor(private val repo: PaoRepo) {
 
-    val loading = ObservableBoolean(false)
-    val title = ObservableField<String>()
-    val content = ObservableField<String>()
-    val error = ObservableField<Throwable>()
+    val loading = MutableLiveData<Boolean>()
+    val title = MutableLiveData<String>()
+    val content = MutableLiveData<String>()
+    val error = MutableLiveData<Throwable>()
 
     fun loadArticle(): Single<Article> =
         repo.getArticleDetail(8773)

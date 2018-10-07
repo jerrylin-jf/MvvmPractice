@@ -26,6 +26,8 @@ class PaoActivity : AppCompatActivity() {
         getComponent().inject(this)
 
         binding.vm = paoViewModel
+        binding.setLifecycleOwner(this)
+
     }
 
     fun getComponent() = DaggerAppComponent.builder()

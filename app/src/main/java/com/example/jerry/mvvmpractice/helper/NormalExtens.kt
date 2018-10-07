@@ -1,6 +1,7 @@
 package com.example.jerry.mvvmpractice.helper
 
 import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.MutableLiveData
 import com.uber.autodispose.AutoDispose
 import com.uber.autodispose.SingleSubscribeProxy
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -19,6 +20,10 @@ fun <T> Single<T>.async(withDelay: Long = 0): Single<T> =
         .delay(withDelay, TimeUnit.MILLISECONDS)
         .observeOn(AndroidSchedulers.mainThread())
 
-fun  <T> Single<T>.bindLifeCycle(owner: LifecycleOwner): SingleSubscribeProxy<T> {
+fun <T> Single<T>.bindLifeCycle(owner: LifecycleOwner): SingleSubscribeProxy<T> {
     return this.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner)))
 }
+
+fun <T : Any> MutableLiveData<T>.set(value: T?) = postValue(value)
+
+fun <T : Any> MutableLiveData<T>.get() = value
