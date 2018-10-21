@@ -1,5 +1,6 @@
-package com.example.jerry.mvvmpractice.di.module
+package com.example.jerry.mvvmpractice.di
 
+import android.app.Application
 import android.content.Context
 import com.example.jerry.mvvmpractice.model.local.AppDatabase
 import com.example.jerry.mvvmpractice.model.local.dao.PaoDao
@@ -14,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(val applicationContext: Context) {
+class AppModule {
 
     @Provides
     @Singleton
@@ -36,7 +37,7 @@ class AppModule(val applicationContext: Context) {
 
     @Provides
     @Singleton
-    fun provideAppDataBase(): AppDatabase = AppDatabase.getInstance(applicationContext)
+    fun provideAppDataBase(application: Application): AppDatabase = AppDatabase.getInstance(application)
 
     @Provides
     @Singleton
