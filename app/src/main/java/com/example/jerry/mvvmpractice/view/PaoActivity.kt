@@ -1,17 +1,16 @@
 package com.example.jerry.mvvmpractice.view
 
-import com.example.jerry.mvvmpractice.R
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.jerry.mvvmpractice.R
 import com.example.jerry.mvvmpractice.databinding.ActivityPaoBinding
-import com.example.jerry.mvvmpractice.di.component.DaggerAppComponent
-import com.example.jerry.mvvmpractice.di.module.AppModule
 import com.example.jerry.mvvmpractice.helper.bindLifeCycle
 import com.example.jerry.mvvmpractice.viewmodel.PaoViewModel
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class PaoActivity : AppCompatActivity() {
@@ -20,19 +19,14 @@ class PaoActivity : AppCompatActivity() {
     @Inject lateinit var paoViewModel: PaoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pao)
-
-        getComponent().inject(this)
 
         binding.vm = paoViewModel
         binding.setLifecycleOwner(this)
 
     }
-
-    fun getComponent() = DaggerAppComponent.builder()
-        .appModule(AppModule(applicationContext)).build()
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.let {
             menuInflater.inflate(R.menu.detail_menu, it)

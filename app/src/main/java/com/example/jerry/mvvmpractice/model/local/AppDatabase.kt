@@ -7,7 +7,7 @@ import android.content.Context
 import com.example.jerry.mvvmpractice.model.data.Article
 import com.example.jerry.mvvmpractice.model.local.dao.PaoDao
 
-@Database(entities = arrayOf(Article::class), version = 1)
+@Database(entities = [Article::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun paoDao(): PaoDao
